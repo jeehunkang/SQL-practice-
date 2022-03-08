@@ -1,0 +1,15 @@
+
+# When Barcelona was an "away team", check whether they won/lost against home teams 
+
+SELECT 
+	matches_spain.date,
+	teams_spain.team_long_name as home_team, 
+
+	CASE WHEN matches_spain.away_goal > matches_spain.home_goal THEN 'Barcelona won'
+	     WHEN matches_spain.away_goal < matches_spain.home_goal then 'Barcelona lost'
+		 ELSE 'Ties' END AS Result 
+
+FROM matches_spain 
+
+LEFT JOIN teams_spain on matches_spain.hometeam_id = teams_spain.team_api_id 
+WHERE awayteam_id = 8634 
